@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58.36 43.22">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-width: 0px;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #f9f4ac;
+      }
+
+      .cls-2 {
+        stroke: #f2ec63;
+        stroke-width: .15px;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-3 {
+        fill: #ffe108;
+        stroke: #faad73;
+      }
+
+      .cls-4 {
+        stroke-width: .1px;
+      }
+
+      .cls-4, .cls-5 {
+        fill: #855e42;
+        font-family: CurlzMT, 'Curlz MT';
+        font-size: 10.43px;
+        stroke: #88c656;
+      }
+
+      .cls-6 {
+        letter-spacing: -.05em;
+      }
+
+      .cls-5 {
+        stroke-width: .25px;
+      }
+    </style>
+  </defs>
+  <ellipse class="cls-3" cx="29.93" cy="21.61" rx="27.93" ry="21.11"/>
+  <text class="cls-5" transform="translate(9.31 20.11)"><tspan class="cls-6" x="0" y="0">W</tspan><tspan x="8.89" y="0">oodlands</tspan><tspan x="0" y="12.52">Libary</tspan></text>
+  <text class="cls-4" transform="translate(9.27 20.11)"><tspan class="cls-6" x="0" y="0">W</tspan><tspan x="8.89" y="0">oodlands</tspan><tspan x="0" y="12.52">Libary</tspan></text>
+  <polygon class="cls-2" points="6.43 8.13 7.32 9.93 9.31 10.22 7.87 11.62 8.21 13.6 6.43 12.67 4.66 13.6 5 11.62 3.56 10.22 5.55 9.93 6.43 8.13"/>
+  <polygon class="cls-1" points="2.88 14.18 3.77 15.99 5.75 16.27 4.32 17.68 4.66 19.66 2.88 18.72 1.1 19.66 1.44 17.68 0 16.27 1.99 15.99 2.88 14.18"/>
+  <polygon class="cls-1" points="11.36 3.55 12.25 5.35 14.24 5.64 12.8 7.05 13.14 9.03 11.36 8.09 9.59 9.03 9.93 7.05 8.49 5.64 10.48 5.35 11.36 3.55"/>
+</svg>

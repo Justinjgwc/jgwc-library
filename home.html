@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>School Library Web App</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/fullpage.js/dist/fullpage.min.css">
+    <link rel="stylesheet" href="https://kit.fontawesome.com/0a3c988526.js" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/0a3c988526.js" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/fullpage.js/dist/fullpage.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <a class="navbar-brand" href="#Home">
+            <?xml version="1.0" encoding="UTF-8"?>
+            <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 58.36 43.22">
+                <defs>
+                    <style>
+                        .cls-1 {
+                            stroke-width: 0px;
+                        }
+
+                        .cls-1,
+                        .cls-2 {
+                            fill: #f9f4ac;
+                        }
+
+                        .cls-2 {
+                            stroke: #f2ec63;
+                            stroke-width: .15px;
+                        }
+
+                        .cls-2,
+                        .cls-3,
+                        .cls-4,
+                        .cls-5 {
+                            stroke-miterlimit: 10;
+                        }
+
+                        .cls-3 {
+                            fill: #ffe108;
+                            stroke: #faad73;
+                        }
+
+                        .cls-4 {
+                            stroke-width: .1px;
+                        }
+
+                        .cls-4,
+                        .cls-5 {
+                            fill: #855e42;
+                            font-family: CurlzMT, 'Curlz MT';
+                            font-size: 10.43px;
+                            stroke: #88c656;
+                        }
+
+                        .cls-6 {
+                            letter-spacing: -.05em;
+                        }
+
+                        .cls-5 {
+                            stroke-width: .25px;
+                        }
+                    </style>
+                </defs>
+                <ellipse class="cls-3" cx="29.93" cy="21.61" rx="27.93" ry="21.11" />
+                <text class="cls-5" transform="translate(9.31 20.11)">
+                    <tspan class="cls-6" x="0" y="0">W</tspan>
+                    <tspan x="8.89" y="0">oodlands</tspan>
+                    <tspan x="0" y="12.52">Libary</tspan>
+                </text>
+                <text class="cls-4" transform="translate(9.27 20.11)">
+                    <tspan class="cls-6" x="0" y="0">W</tspan>
+                    <tspan x="8.89" y="0">oodlands</tspan>
+                    <tspan x="0" y="12.52">Libary</tspan>
+                </text>
+                <polygon class="cls-2"
+                    points="6.43 8.13 7.32 9.93 9.31 10.22 7.87 11.62 8.21 13.6 6.43 12.67 4.66 13.6 5 11.62 3.56 10.22 5.55 9.93 6.43 8.13" />
+                <polygon class="cls-1"
+                    points="2.88 14.18 3.77 15.99 5.75 16.27 4.32 17.68 4.66 19.66 2.88 18.72 1.1 19.66 1.44 17.68 0 16.27 1.99 15.99 2.88 14.18" />
+                <polygon class="cls-1"
+                    points="11.36 3.55 12.25 5.35 14.24 5.64 12.8 7.05 13.14 9.03 11.36 8.09 9.59 9.03 9.93 7.05 8.49 5.64 10.48 5.35 11.36 3.55" />
+            </svg>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#Home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#Stats">Stats</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#Inventory">Inventory</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookModalLabel">Book Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="bookTitle"></h5>
+                    <p id="bookAuthor"></p>
+                    <p id="bookDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="fullpage" class="container-fluid m-0">
+       
+        <div class="section">
+            <div class="row justify-content-center align-items-start p-0 m-0">
+                <div class="col-md-6 offset-md-4">
+                    <div class="Search">
+                        <input type="text" id="searchInput" placeholder="Search for Books">
+                        <button id="searchButton">Search</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center align-items-start p-0 m-0">
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Think Faster, Talk Smarter" data-author="Author: Matt Abrahams" data-description="Matt Abrahams is a leading expert in communication with decades of experience as an educator, author, podcast host, and coach. As a Lecturer in Organizational Behavior at Stanford University’s Graduate School of Business, he teaches popular classes in strategic communication and effective virtual presenting. He received Stanford GSB’s Alumni Teaching Award in recognition of his teaching students around the world. When he isn’t teaching, Matt is a sought-after keynote speaker and communication consultant. He has helped countless presenters improve and hone their communication, including some who have delivered IPO road shows as well as TED, World Economic Forum, and Nobel Prize presentations. His online talks garner millions of views and he hosts the popular, award-winning podcast Think Fast, Talk Smart The Podcast. His previous book Speaking Up without Freaking Out: 50 Techniques for Confident and Compelling Presenting has helped thousands of people manage speaking anxiety and present more confidently and authentically. ">
+                        <img class="card-img-top" src="images/thinksmarter.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">Think Faster, Talk Smarter</h5>
+                         <p class="card-text"> <i class="fa-solid fa-user"></i> Matt Abrahams</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Atomic Habit" data-author="Author: James Clear" data-description="Atomic Habits by James Clear is a comprehensive, practical guide on how to change your habits and get 1% better every day. Using a framework called the Four Laws of Behavior Change, Atomic Habits teaches readers a simple set of rules for creating good habits and breaking bad ones. Read the full summary to glean 3 key lessons from Atomic Habits, learn how to build a habit in 4 simple steps, and get a handy reference guide for the strategies recommended throughout the book.">
+                        <img class="card-img-top" src="images/atomichabit.png">
+                        <div class="card-body">
+                          <h5 class="card-title">Atomic Habits</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> James Clear</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Interesting Facts" data-author="Author: Jordan Moore" data-description="Want to impress your friends and family with both useful, worthless but undeniably interesting facts?
+
+                    Then Interesting Facts For Curious Minds: 1572 Random But Mind Blowing Facts About History, Science, Pop Culture and Everything in Between is the book for you!
+                    
+                    In this book you'll find the answers to questions such as:
+                    
+                    ● When did zero become a number?
+                    
+                    ● Who was the inventor of Bitcoin?
+                    
+                    ● What did the Big Bang sound like?
+                    
+                    ● How have sports changed around the world?
+                    
+                    ● What's a malapropism?
+                    
+                    Interesting Facts For Curious Minds gives you the answer to all these and many, many more questions that I know have crossed your mind from time to time. This book is divided into 63 chapters by topic for your convenience, bringing you a nice mix of science, history, pop culture, and all sorts of stuff in between. Each chapter contains 25 concise yet engaging factoids that are sure to make you think and at times laugh.
+                    How you read this book is entirely up to you. I'm sure most of you will read it cover to cover at some point, but when you're with friends and family you can pick the chapters out that most appeal to all of you.
+                    
+                    However you read this book, I guarantee you'll find it one of the best tools to pass some time, relax alone, or connect with others. So sit back, relax, and get ready to learn some truly interesting facts!">
+                        <img class="card-img-top" src="images/interestingfacts.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">Interesting Facts</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Jordan Moore</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Elon Musk" data-author="Author: Walter Isaacson" data-description="When Elon Musk was a kid in South Africa, he was regularly beaten by bullies. One day a group pushed him down some concrete steps and kicked him until his face was a swollen ball of flesh. He was in the hospital for a week. But the physical scars were minor compared to the emotional ones inflicted by his father, an engineer, rogue, and charismatic fantasist.
+
+                    His father’s impact on his psyche would linger. He developed into a tough yet vulnerable man-child, prone to abrupt Jekyll-and-Hyde mood swings, with an exceedingly high tolerance for risk, a craving for drama, an epic sense of mission, and a maniacal intensity that was callous and at times destructive.
+                    
+                    At the beginning of 2022—after a year marked by SpaceX launching thirty-one rockets into orbit, Tesla selling a million cars, and him becoming the richest man on earth—Musk spoke ruefully about his compulsion to stir up dramas. “I need to shift my mindset away from being in crisis mode, which it has been for about fourteen years now, or arguably most of my life,” he said.
+                    
+                    It was a wistful comment, not a New Year’s resolution. Even as he said it, he was secretly buying up shares of Twitter, the world’s ultimate playground. Over the years, whenever he was in a dark place, his mind went back to being bullied on the playground. Now he had the chance to own the playground.
+                    
+                    For two years, Isaacson shadowed Musk, attended his meetings, walked his factories with him, and spent hours interviewing him, his family, friends, coworkers, and adversaries. The result is the revealing inside story, filled with amazing tales of triumphs and turmoil, that addresses the question: are the demons that drive Musk also what it takes to drive innovation and progress?
+                    ">
+                        <img class="card-img-top" src="images/elonmusk.jpeg">
+                        <div class="card-body">
+                          <h5 class="card-title">Elon Musk</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Walter Isaacson</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="The War That Will End War" data-author="Author: H.G. Wells" data-description="The War That Will End War by H.G. Wells: In this thought-provoking essay, H.G. Wells confronts the devastating realities of World War I and explores the idea of using the conflict as a catalyst to end all future wars. 'The War That Will End War' presents Wells' vision for a world order based on international cooperation and disarmament, urging for lasting peace and global harmony.
+
+                    Key Aspects of the Book 'The War That Will End War':
+                    World War I Analysis: Wells' essay offers a critical analysis of the causes and consequences of World War I, reflecting on its profound impact on humanity.
+                    Peace and Disarmament: The book advocates for the pursuit of peace through collective efforts and the dismantling of militarism.
+                    Humanitarian Ideals: 'The War That Will End War' reflects Wells' humanitarian ideals and his belief in the potential for humanity to build a better future.
+                    
+                    H.G. Wells was an English writer born in 1866, renowned for his contributions to science fiction and social commentary. He wrote prolifically on various subjects, including war and peace, envisioning a world united by knowledge and empathy. Wells' works continue to inspire readers and provoke contemplation on the course of human history.">
+                        <img class="card-img-top" src="images/TheWarThatWillEndWar.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">The War That Will End War</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> H.G. Wells</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Dare to be a Champion" data-author="Author: Lee Chong Wei" data-description="'Dare To Be A Champion' is the autobiography of Dato' Lee Chong Wei, a professional badminton player from Malaysia. Since August 21st, 2008 he has been ranked as the world's no. 1 badminton men singles player on the Badminton World Federation (BWF) World Ranking list for more than 172 weeks.">
+                        <img class="card-img-top" src="images/daretobe.jpeg">
+                        <div class="card-body">
+                          <h5 class="card-title">Dare to be a Champion</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Lee Chong Wei</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                        
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="The Name of the Wind" data-author="Author: Patrick Rothfuss" data-description="The Kingkiller Chronicle takes place in the fictional world of Temerant, a large continent of which the known part, called the Four Corners of Civilization, is divided into several distinct nations and cultures. Much of the world follows a faith vaguely similar to medieval Christianity. Coexisting alongside the mortal world is the realm of the Fae, a parallel universe inhabited by supernatural creatures which can move between the two realms only when the moon is full. Magic exists in Temerant, too, but obeys a well-defined set of rules and principles that can only be exploited by those who have trained in its professional and scientific use.">
+                        <img class="card-img-top" src="images/TheNameoftheWind_cover.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">The Name of the Wind</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Patrick Rothfuss</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="An Army at Dawn" data-author="Author: Rick Atkinson" data-description="An Army at Dawn: The War in North Africa, 1942–1943 is a Pulitzer Prize–winning book written in 2002 by long-time Washington Post correspondent Rick Atkinson. The book is a history of the North African Campaign, particularly focused on the role of the United States military.">
+                        <img class="card-img-top" src="images/anarmy.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">An Army at Dawn</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Rick Atkinson</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Snow Crash" data-author="Author: Neal Stephenson" data-description="In the 21st century, an unspecified number of years after a worldwide economic collapse, Los Angeles is no longer part of the United States since the federal government has ceded most of its power and territory to private organizations and entrepreneurs. Franchising, individual sovereignty, and private vehicles reign supreme. Mercenary armies compete for national defense contracts, while private security guards preserve the peace in sovereign gated housing developments.  Highway companies compete to attract drivers to their roads,[7]: 7  and all mail delivery is by hired courier. The remnants of government maintain authority only in isolated compounds, where they do tedious make-work that is, by and large, irrelevant to the society around them.  Much of the world's territory has been carved up into sovereign enclaves known as Franchise-Organized Quasi-National Entities (FOQNEs), each run by its own big business franchise (such as 'Mr. Lee's Greater Hong Kong', or the corporatized American Mafia), or various residential burbclaves (quasi-sovereign gated communities). In this future, American institutions are far different from those in the actual United States at the time the book was published; for example, a for-profit organization, the CIC, has evolved from the CIA's merger with the Library of Congress. ">
+                        <img class="card-img-top" src="images/snowcrash.jpeg">
+                        <div class="card-body">
+                          <h5 class="card-title">Snow Crash</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Neal Stephenson</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Anxious People" data-author="Author: Fredrik Backman" data-description="Ten years ago, a man lost all his savings due to a financial crash. He visited a financial banker named Zara and asked for advice, but she flatly said it was his fault for giving the bank his money. The man wrote a letter to her before taking his own life by jumping off the bridge.
+
+                    In the present day, a woman tries to rob a bank to get enough money to pay for rent, so her ex-husband won't take her children away. Unfortunately, it is a cashless bank, so she panics and runs to a nearby apartment building to avoid being caught by the police. The bank robber enters an apartment viewing, and the people inside see her pistol and assume that it is a robbery. The bank robber hesitantly accepts that she is taking the people hostage as she tried to maintain order.
+                    
+                    The hostages are apartment renovators Anna-Lena and Roger, expecting mothers Julia and Ro, an elderly Estelle, and bank owner Zara. They find a man named Lennart wearing a bunny suit inside the bathroom. Anna-Lena admits that she hired Lennart to cause a commotion to lower the bidding price of other prospective buyers, in order to make Roger believe that he negotiated the price himself. They split up in silence, as Roger had taken pride in his negotiation skills.
+                    
+                    Ro follows Roger and admits to him that the reason she nitpicks every apartment her wife Julia brings her to is because she fears she isn't ready to be a parent. Roger assures her that she'll be a good mother and encourages her to buy the apartment. Anna-Lena tells Julia that she fears Roger hates her for deceiving him, but Julia promises her that all couples show their love to their spouses in unconventional ways. A standoffish Zara looks at the bridge from the apartment's balcony and complains about human greed and economic systems to Lennart. When all the hostages regroup, Roger tells Julia that Ro is excited and nervous to be a mother, and Julia tells Roger that he is enough and that Anna-Lena still loves him.
+                    
+                    The bank robber apologizes for keeping them hostage and says she will free them and turn herself in. However, the hostages argue that she simply made a mistake to protect her children, and that they all agree to lie in their witness statements to protect her. Estelle reveals that the apartment they're current in is actually her apartment, and that she posed as one of the buyers to sell it to someone who deserved it. She gives the bank robber the key to a neighboring apartment to hide in when the police arrive. The bank robber thanks the hostages for being kind to her.
+                    
+                    Jim is the first policer to reach the apartment. The bank robber turns herself in and tells Jim the whole truth of why she robbed the bank. Jim feels sympathy for her and agrees to let her off scot-free. The bank robber releases the hostages and hides in a neighboring apartment. His son Jack interviews the hostages and is frustrated when they play dumb. A series of coincidences lead Jack to believe that the bank robber is still hiding in the apartment, or left pretending to be real estate agent. Jim tells the truth to his son, and they reconcile.
+                    
+                    In the end, the bank robber moves in with Estelle in her apartment, and her children are hers every other week. Julia and Ro move into a neighboring apartment and have a baby boy. Anna-Lena and Roger take up a new hobby. Zara starts a relationship with Lennart and works up the courage to read the letter from the man who jumped off the bridge ten years ago. It reads "It wasn't your fault." and she finally lets go of her guilt.">
+                        <img class="card-img-top" src="images/anxious.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">Anxious People</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Fredrik Backman</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Steve Jobs" data-author="Author: Walter Isaacson" data-description="Steve Jobs is the authorized self-titled biography of American business magnate and Apple co-founder Steve Jobs. The book was written at the request of Jobs by Walter Isaacson, a former executive at CNN and Time who had previously written best-selling biographies of Benjamin Franklin and Albert Einstein.">
+                        <img class="card-img-top" src="images/Steve_Jobs_by_Walter_Isaacson.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">Steve Jobs </h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i>	Walter Isaacson</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Ninth House" data-author="Author: Leigh Bardugo" data-description="The novel follows unlikely Yale University freshman 20-year-old Galaxy 'Alex' Stern, a high school drop out and homicide survivor who can see ghosts, called 'Grays'. Alex is mysteriously offered a full ride to university following her trauma despite her background and lack of qualifications. She attempts to navigate her new life at the Ivy League while tasked by her benefactor with monitoring the eight Houses of the Veil, secret societies that harbor dark occult magic and power, as a member of Lethe, the ninth house.">
+                        <img class="card-img-top" src="images/Ninth_House_book_cover.png">
+                        <div class="card-body">
+                          <h5 class="card-title">Ninth House</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Leigh Bardugo</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3 ">
+                    <div class="card" style="width: 18rem;;"data-title="Einstein: His Life and Universe" data-author="Author: Walter Isaacson" data-description="Based on newly released personal letters of Einstein, this book explores how an imaginative, impertinent patent clerk—a struggling father in a difficult marriage who couldn’t get a teaching job or a doctorate—became the mind reader of the creator of the cosmos, the locksmith of the mysteries of the atom, and the universe. His success came from questioning conventional wisdom and marveling at mysteries that struck others as mundane. This led him to embrace a morality and politics based on respect for free minds, free spirits, and free individuals.">
+                        <img class="card-img-top" src="images/albert.jpeg">
+                        <div class="card-body">
+                          <h5 class="card-title">Einstein: His Life and Universe</h5>
+                        
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Walter Isaacson</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Catherine the Great: Portrait of a Woman" data-author="Author: Robert K. Massie" data-description="The daughter of an impoverished aristocrat, Catherine was married aged 16 to Grand Duke Peter, heir to the throne of all the Russias, a feckless teenager with a weakness for drink. Catherine was only able to give him an heir by passing off her lover's son as his own.
+
+                    In 1762, Catherine rode out of St Petersburg at the head of an army to arrest her husband. Three months later she became sole empress of the largest empire on earth. She was 33 years old.
+                    
+                    She ruled Russia as a benevolent autocrat for 34 years,fighting the Turks abroad and rebellion at home, and shepherding her people through the upheavals of the French Revolution. She took on many lovers but gave her heart to General Potemkin, the foremost statesman of her time.
+                    
+                    She died in 1796 aged 67, revered by her people as 'our mother', praised by Voltaire as a philosopher, reviled by her enemies as the Messalina of the North and remembered in history as Catherine the Great.
+                    
+                    From this extraordinary life of great events, fabulous splendour and barbaric cruelty, Robert K. Massie has woven a thrilling narrative based on impeccable scholarship and a cinematic eye for detail.">
+                        <img class="card-img-top" src="images/catherine.jpeg">
+                        <div class="card-body">
+                          <h5 class="card-title">Catherine the Great: Portrait of a Woman</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Robert K. Massie</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="The New Negro: The Life of Alain Locke" data-author="Author: Jeffrey C. Stewart" data-description="The New Negro: The Life of Alain Locke is a 2018 biography of Alain LeRoy Locke written by historian Jeffrey C. Stewart. The biography examines the life of Locke, an African-American activist and scholar who mentored many African-American intellectuals and writers and whom many see as the 'father' of the Harlem Renaissance. Published by Oxford University Press, The New Negro won the 2018 National Book Award for Nonfiction and the 2019 Pulitzer Prize for Biography.">
+                        <img class="card-img-top" src="images/The_New_Negro.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">The New Negro: The Life of Alain Locke</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Jeffrey C. Stewart</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="I Know Why the Caged Bird Sings" data-author="Author: Maya Angelou" data-description="I Know Why the Caged Bird Sings is a 1969 autobiography describing the young and early years of American writer and poet Maya Angelou. The first in a seven-volume series, it is a coming-of-age story that illustrates how strength of character and a love of literature can help overcome racism and trauma. The book begins when three-year-old Maya and her older brother are sent to Stamps, Arkansas, to live with their grandmother and ends when Maya becomes a mother at the age of 16. In the course of Caged Bird, Maya transforms from a victim of racism with an inferiority complex into a self-possessed, dignified young woman capable of responding to prejudice.">
+                        <img class="card-img-top" src="images/I_Know_Why_the_Caged_Bird_Sings_front_cover,_1969_first_edition.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">I Know Why the Caged Bird Sings</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Maya Angelou</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Genghis Khan and the Making of the Modern World" data-author="Author: Jack Weatherford" data-description="Genghis Khan and the Making of the Modern World (2004) is a history book written by Jack Weatherford, Dewitt Wallace Professor of Anthropology at Macalester College. It is a narrative of the rise and influence of Mongol leader Genghis Khan and his successors, and their influence on European civilization. Weatherford provides a different slant on Genghis Khan than has been typical in most Western accounts, attributing positive cultural effects to his rule.">
+                        <img class="card-img-top" src="images/khan.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">Genghis Khan and the Making of the Modern World</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Jack Weatherford</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="1491: New Revelations of the Americas Before Columbus" data-author="Author: Charles C. Mann" data-description="1491: New Revelations of the Americas Before Columbus is a 2005 non-fiction book by American author and science writer Charles C. Mann about the pre-Columbian Americas. It was the 2006 winner of the National Academies Communication Award for best creative work that helps the public's understanding of topics in science, engineering or medicine.">
+                        <img class="card-img-top" src="images/new.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">1491: New Revelations of the Americas Before Columbus</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Charles C. Mann</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Team of Rivals: The Political Genius of Abraham Lincoln" data-author="Author: Doris Kearns Goodwin" data-description="Team of Rivals: The Political Genius of Abraham Lincoln is a 2005 book by Pulitzer Prize-winning American historian Doris Kearns Goodwin, published by Simon & Schuster. The book is a biographical portrait of U.S. President Abraham Lincoln and some of the men who served with him in his cabinet from 1861 to 1865.">
+                        <img class="card-img-top" src="images/lincoln.jpg">
+                        <div class="card-body">
+                          <h5 class="card-title">Team of Rivals: The Political Genius of Abraham Lincoln</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Doris Kearns Goodwin</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;"data-title="Behold, America: A History of America First and the American Dream" data-author="Author: Sarah Churchwell" data-description="Starting as a Republican motto before becoming a hugely influential isolationist slogan during World War I, America First was always closely linked with authoritarianism and white supremacy. The American dream, meanwhile, initially represented a broad vision of democratic and economic equality. Churchwell traces these notions through the 1920s boom, the Depression, and the rise of fascism at home and abroad, laying bare the persistent appeal of demagoguery in America and showing us how it was resisted. At a time when many ask what America's future holds, Behold, America is a revelatory, unvarnished portrait of where we have been.">
+                        <img class="card-img-top" src="images/behold.jpeg">
+                        <div class="card-body">
+                          <h5 class="card-title">Behold, America: A History of America First and the American Dream</h5>
+                          <p class="card-text"><i class="fa-solid fa-user"></i> Sarah Churchwell</p>
+                          <button onclick="toggleReservation(this)" class="btn btn-primary">Reserve</button>
+                        </div>
+                      </div>
+                </div>
+        </div>
+ 
+        </div>
+
+
+
+        <div class="section">
+            <div class="row p-0 m-0">
+                <div class="col-md-12">
+                    <div class="col-md-12">
+                        <div class="chart-container">
+                            <canvas id="booksChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+
+        <div class="section">
+
+            <div class="row p-100 m-0">
+                <div class="col-md-12">
+                    <table id="BookInventoryTable" class="display">
+                        <thead>
+                            <tr>
+                                <td>Title</Title></td>
+                                <td>Genre</td>
+                                <td>Year</td>
+                                <td>Type</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Think Faster, Talk Smarter</td>
+                                <td>Self Help</td>
+                                <td>2023</td>
+                                <td>eBook</td>
+                            </tr>
+
+                            <tr>
+                                <td>Atomic Habits</td>
+                                <td>Self Help</td>
+                                <td>2018</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>Interesting Facts</td>
+                                <td>Others</td>
+                                <td>2022</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>Elon Musk</td>
+                                <td>Biography</td>
+                                <td>2023</td>
+                                <td>eBook</td>
+                            </tr>
+
+                            <tr>
+                                <td>The war that will end war</td>
+                                <td>History</td>
+                                <td>1914</td>
+                                <td>Hardcover</td>
+                            </tr>
+
+                            <tr>
+                                <td>Dare to be a Champion</td>
+                                <td>Biography</td>
+                                <td>2012</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>The Name of the Wind</td>
+                                <td>Biography</td>
+                                <td>2007</td>
+                                <td>Hardcover</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>An Army at Dawn</td>
+                                <td>History</td>
+                                <td>2022</td>
+                                <td>Audio</td>
+                            </tr>
+
+                            <tr>
+                                <td>Snow Crash</td>
+                                <td>Fiction</td>
+                                <td>1992</td>
+                                <td>Hardcover</td>
+                            </tr>
+
+                            <tr>
+                                <td>Anxious People</td>
+                                <td>Humor</td>
+                                <td>2019</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>Steve Jobs</td>
+                                <td>Biography</td>
+                                <td>2011</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>Einstein: His Life and Universe</td>
+                                <td>Biography</td>
+                                <td>2007</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>Catherine the Great: Portrait of a Woman</td>
+                                <td>Biography</td>
+                                <td>2011</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>The New Negro: The Life of Alain Locke</td>
+                                <td>Biography</td>
+                                <td>2017</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>I Know Why the Caged Bird Sings</td>
+                                <td>Biography</td>
+                                <td>1969</td>
+                                <td>Hardcover</td>
+                            </tr>
+
+                            <tr>
+                                <td>Genghis Khan and the Making of the Modern World</td>
+                                <td>Biography</td>
+                                <td>2004</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>1491: New Revelations of the Americas Before Columbus</td>
+                                <td>Others</td>
+                                <td>2004</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>Team of Rivals: The Political Genius of Abraham Lincoln</td>
+                                <td>History</td>
+                                <td>2005</td>
+                                <td>Paperback</td>
+                            </tr>
+
+                            <tr>
+                                <td>Behold, America: A History of America First and the American Dream</td>
+                                <td>History</td>
+                                <td>2018</td>
+                                <td>Paperback</td>
+                            </tr>
+                            <tr>
+                                <td>Ninth House</td>
+                                <td>Others</td>
+                                <td>2019</td>
+                                <td>Audio</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/fullpage.js/dist/fullpage.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
